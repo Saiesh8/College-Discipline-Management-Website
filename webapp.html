@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web App</title>
+    <style>
+        .teacher {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: url('teacher.png') no-repeat;
+            background-size: cover;
+            transition: transform 0.2s;
+        }
+        
+        .teacher-eyes {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: rgb(255, 0, 0);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        header {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        header h1 {
+            font-weight: 600;
+            background: -webkit-linear-gradient(#1500ff, #000000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        h1 {
+            text-decoration: solid;
+            font-weight: 600;
+            background: -webkit-linear-gradient(#ff9500, #8500c7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .login-container {
+            width: 300px;
+            margin: 0 auto;
+            margin-top: 100px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        input[type="text"],
+        input[type="password"] {
+            width: 25%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        
+        input[type="submit"] {
+            width: 50%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #ebf300;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        
+        input[type="submit"] {
+            all: unset;
+            width: 100px;
+            height: 30px;
+            font-size: 16px;
+            background: transparent;
+            border: none;
+            position: relative;
+            color: #e5ff00;
+            cursor: pointer;
+            z-index: 1;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+        }
+        
+        input[type="submit"]::after,
+        input[type="submit"]::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            z-index: -99999;
+            transition: all .4s;
+        }
+        
+        input[type="submit"]::before {
+            transform: translate(0%, 0%);
+            width: 100%;
+            height: 100%;
+            background: #0000ff;
+            border-radius: 10px;
+        }
+        
+        input[type="submit"]::after {
+            transform: translate(10px, 10px);
+            width: 35px;
+            height: 35px;
+            background: #d9ff00;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border-radius: 50px;
+        }
+        
+        input[type="submit"]:hover::before {
+            transform: translate(5%, 20%);
+            width: 110%;
+            height: 110%;
+        }
+        
+        input[type="submit"]:hover::after {
+            border-radius: 10px;
+            transform: translate(0, 0);
+            width: 100%;
+            height: 100%;
+        }
+        
+        input[type="submit"]:active::after {
+            transition: 0s;
+            transform: translate(0, 5%);
+        }
+        
+        input[type="submit"]:hover {
+            background-color: #0070e8;
+        }
+        
+        td,
+        button {
+            color: rgb(0, 0, 0);
+            font-size: medium;
+            font-style: oblique;
+        }
+        
+        header {
+            background-color: #333;
+            top: 0;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+        }
+        
+        #menu ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        #menu ul li {
+            display: inline;
+            margin-right: 10px;
+        }
+        
+        #menu ul li a {
+            text-decoration: none;
+            color: #333;
+            background-color: #eee;
+            padding: 5px 10px;
+            border-radius: 5px;
+            flex: 1 0 1;
+        }
+        
+        #content {
+            margin: 20px;
+        }
+        
+        button {
+            font-family: "Open Sans", sans-serif;
+            font-size: 16px;
+            letter-spacing: 2px;
+            text-decoration: none;
+            text-transform: uppercase;
+            color: #000;
+            cursor: pointer;
+            border: 3px solid;
+            padding: 0.25em 0.5em;
+            box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+            position: relative;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+        }
+        
+        button:active {
+            box-shadow: 0px 0px 0px 0px;
+            top: 5px;
+            left: 5px;
+        }
+        
+        @media (min-width: 768px) {
+            button {
+                padding: 0.25em 0.75em;
+            }
+        }
+        
+        .link {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            font-size: 13px;
+            color: #ffff00;
+            text-decoration: none;
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            border: 2px solid #335067;
+            padding: 10px 14px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+        
+        table {
+            margin-top: 2%;
+            width: max-content;
+            border: 1px solid black;
+            height: 300px;
+            margin-left: 23%;
+            background: #15ff00;
+        }
+        
+        td {
+            text-align: center;
+            border: 1px solid black;
+        }
+        
+        body {
+            min-height: 200vh;
+        }
+        
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            width: 0%;
+            height: 10px;
+            background: #ff0000;
+            z-index: 10000;
+        }
+    </style>
+</head>
+
+<body style="  background-image: linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet);background-image: url('bg.jpg');">
+    <header style="background-image: url('dis.png');">
+
+
+        <h1>Welcome to PSCMR DISCIPLINE & ORGANIZATION</h1>
+        <div id="scroll-progress"></div>
+        <script>
+            const scrollProgress = document.getElementById('scroll-progress');
+            const height =
+                document.documentElement.scrollHeight - document.documentElement.clientHeight;
+
+            window.addEventListener('scroll', () => {
+                const scrollTop =
+                    document.body.scrollTop || document.documentElement.scrollTop;
+                scrollProgress.style.width = `${(scrollTop / height) * 100}%`;
+            });
+        </script>
+        <div class="teacher" id="teacher">
+            <div class="teacher-eyes">
+            </div>
+        </div>
+        <div id="menu">
+
+            <div class="login_container" id="login_container">
+                <center>
+                    <h2 style="color:#000;">Login</h2>
+                    <form id="login-form" action="#" method="post" width="50%">
+                        <label for="username" style="background-color: #ceed00;color:black;font-weight: bolder;">Username:</label>
+                        <input type="text" id="username" name="username" width="50%" required><br>
+
+                        <label for="password" style="background-color: #ceed00;color:black;font-weight: bolder;">Password:</label>
+                        <input type="password" id="password" name="password" width="50%" required><br>
+
+                        <input type="submit" style=" background-color: #4CAF50;" value="Login">
+                    </form>
+                </center>
+            </div>
+
+            <div id="userMenu">
+
+            </div>
+        </div>
+
+    </header>
+
+    <main>
+        <div>
+            <h1 height="50%" background-size="50%">.</h1>
+            <h1 height="50%" background-size="50%">.</h1>
+            <h1 height="50%" background-size="50%">.</h1>
+            <h1 height="50%" background-size="50%">.</h1>
+            <h1 height="50%" background-size="50%">.</h1>
+
+        </div>
+        <div id="content">
+            <center>
+                <BR>
+                <IMG src="https://www.pscmr.ac.in/images/footer-logo2.png" alt="PSCMR LOGO" width="100px" height="100px" sizes="2PX">
+                <BR>
+                <BR>
+                <P>
+                    WELCOME TO PSCMR DISCIPLINE AND ORGANIZATION This is the website which is help to users to get info about the disciplain and other in the PSCMR
+                    <div class="a" ALIGN="LEFT">
+                        <h3>
+                            FOR STUDENTS:
+                        </h3>
+                        <P>&nbsp;&nbsp;&nbsp;STUDENTS CAN GET THEIR ATTENDENCE PERCENTAGE ,FINES DUE ,FINES HYSTORY,TIME TABLE OF THE CLASS,ETC.,
+
+                        </P>
+                    </div>
+                    <div class="a" ALIGN="RIGHT">
+                        <h3>
+                            :FOR FACULTY
+                        </h3>
+                        <P>&nbsp;&nbsp;&nbsp;FACULTY CAN ENTRY ATTENDENCE OF A CLASS ,CREATE FINES ,TIME TABLE OF THE CLASSES,ETC.,
+                        </P>
+            </center>
+            </div>
+            </P>
+
+
+
+        </div>
+
+
+    </main>
+
+    <script>
+        var login = document.getElementById('login_container');
+        var content = document.getElementById('content');
+        var userMenu = document.getElementById('userMenu');
+
+
+        // Last minute link to the tutorial
+
+        function showPage(page) {
+            var content = document.getElementById('content');
+            content.innerHTML = ''; // Clear previous content
+
+            if (page === 'timetables') {
+                content.innerHTML = `
+                <center>
+                <h1>Time Table</h1>
+<table border="1">
+<tr style="font-weight: bolder; background-color: #4CAF50;">
+<td>DAY</td>
+<td>9:00-9:50</td>
+<td>9:50-10:40</td>
+<td>10:40-11:00</td>
+<td>11:00-11:50</td>
+<td>11:50-12:40</td>
+<td>12:40-1:30</td>
+<td>1:30-2:30</td>
+<td>2:30-3:30</td>
+<td>3:30-4:30</td>
+</tr>
+<tr>
+<td style="font-weight: bolder; background-color: #4CAF50;">MON</td>
+<td>CN</td>
+<td>IOT&AP</td>
+<td rowspan="6">BREAK</td>
+<td>WT</td>
+<td>GG</td>
+<td rowspan="6">LUNCH BREAK</td>
+<td>CN</td>
+<td>DAA</td>
+<td>SPORTS</td>
+</tr>
+<tr>
+<td style="font-weight: bolder; background-color: #4CAF50;">TUE</td>
+<td>IOT&AP</td>
+<td>WT</td>
+<td colspan="2">DAA</td>
+<td colspan="2">CG</td>
+<td>CN</td>
+</tr>
+<tr>
+<td style="font-weight: bolder; background-color: #4CAF50;">WED</td>
+<td>WT</td>
+<td>DAA</td>
+<td>IOT&AP</td>
+<td>CG</td>
+<td colspan="3">SKILL LAB</td>
+</tr>
+<tr>
+<td style="font-weight: bolder; background-color: #4CAF50;">THUR</td>
+<td>CG</td>
+<td>WT</td>
+<td colspan="2">CRT APT</td>
+<td colspan="3">NP LAB/ARDUINO LAB</td>
+</tr>
+<tr>
+<td style="font-weight: bolder; background-color: #4CAF50;">FRI</td>
+<td>IOT&AP</td>
+<td>ES</td>
+<td>CN</td>
+<td>CG</td>
+<td colspan="3">CRT TECH</td>
+</tr>
+<tr>
+<td style="font-weight: bolder; background-color: #4CAF50;">SAT</td>
+<td colspan="2">WT</td>
+<td>ES</td>
+<td>CN</td>
+<td>DAA</td>
+<td>IOT&AP</td>
+<td>COUNC</td>
+</tr>
+</table>
+
+<h3>Faculty Details</h3>
+<table border="1">
+<tr>
+<td style="font-weight: bolder; background-color: #4CAF50;">Subject Name</td> 
+<td style="font-weight: bolder; background-color: #4CAF50;">Faculty Name</td>
+</tr>
+<td>COMPUTER NETWORKS</td>
+<td>Mrs V.JYOSTNA</td>
+</tr>
+<tr>
+<td>DESIGN AND ANALYSIS OF ALGORITHMS</td> 
+<td>Mr.A.CHANDRA MOULI</td>
+</tr>
+<tr>
+<td>COMPUTER GRAPHICS</td> 
+<td>Mr.B.HANUMANTHA RAO</td>
+</tr>
+<tr>
+<td>IOT ARCHITECTURE AND ITS PROTOCOLS</td> 
+<td>Mrs.B.MANASWINI</td>
+</tr>
+<tr>
+<td>WEB TECHNOLOGIES</td> 
+<td>Mrs.P.S.SILPA</td>
+</tr>
+<tr>
+<td>NETWORK PROGRAMMING LAB</td> 
+<td>Mrs.V.JYOSTNA</td>
+</tr>
+<tr>
+<td>ARDUINO LAB</td> 
+<td>Mrs.B.MANASWINI</td>
+</tr>
+<tr>
+<td>WEB APPLICATIONS DEVELOPMENT USING FULL STACK</td> 
+<td>Mrs.P.S.SILPA</td>
+</tr>
+<tr>
+<td>ENVIROMENTAL SCIENCE</td> 
+<td>Ms.SK.PARVEEN</td>
+</tr>
+<tr>
+<td>CRT TECHNICAL TRAINING</td>
+ <td>Mrs.P.S.SILPA</td>
+ </tr>
+ <tr>
+<td>CRT APTITUDE</td>
+ <td>Mr.K.UDAY SANKAR</td>
+</tr>
+</table>
+        </center>        
+
+                `;
+            } else if (page === 'myfines') {
+                content.innerHTML = '<h2>My Fines</h2><p>No fines look for now.</p>';
+            } else if (page === 'payment') {
+                content.innerHTML = '<h2>Permissons</h2><p>No history recorded.</p>';
+            } else if (page === 'attendence') {
+                content.innerHTML = `   
+                <h1>Attendance</h1>
+    <form id="attendanceForm" onSubmit="JavaScript:submitForm()" >
+        <style>
+        input[type="radio"][value="Present"] {
+            accent-color: rgb(0, 255, 0);
+        }
+        input[type="radio"][value="Absent"] {
+            accent-color: #FF0000; 
+        }
+    </style>
+        
+        <button type="button"  onclick="markAllPresent()">All Present</button>
+        <button type="button" onclick="markAllAbsent()">All Absent</button>
+        <br><br>
+        <table border="1" style="background-image: linear-gradient(to right,#eee, #333);;">
+            <thead>
+                <tr>
+                    <th>Roll Number</th>
+                    <th>Student Name</th>
+                    <th>Present</th>
+                    <th>Absent</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <td>21KT1A4701</td>
+                <td>Abhinav</td>
+                <td><input type="radio" name="attendance[1]" value="Present"></td><td>
+                    <input type="radio" name="attendance[1]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4702</td>
+                    <td>Yashwanth</td>
+                    <td><input type="radio" name="attendance[2]" value="Present"></td><td>
+                        <input type="radio" name="attendance[2]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4703</td>
+                    <td>Jashwanth</td>
+                    <td><input type="radio" name="attendance[3]" value="Present"></td><td>
+                        <input type="radio" name="attendance[3]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4704</td>
+                    <td>Devi Chand</td>
+                    <td><input type="radio" name="attendance[4]" value="Present"></td><td>
+                        <input type="radio" name="attendance[4]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4705</td>
+                    <td>Sudheer</td>
+                    <td><input type="radio" name="attendance[5]" value="Present"></td><td>
+                        <input type="radio" name="attendance[5]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4706</td>
+                    <td>Manoharsha</td>
+                    <td><input type="radio" name="attendance[6]" value="Present"></td><td>
+                        <input type="radio" name="attendance[6]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4707</td>
+                    <td>Navya</td>
+                    <td><input type="radio" name="attendance[7]" value="Present"></td><td>
+                        <input type="radio" name="attendance[7]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4708</td>
+                    <td>Prasad</td>
+                    <td><input type="radio" name="attendance[8]" value="Present"></td><td>
+                        <input type="radio" name="attendance[8]" value="Absent"></td>
+                </tr>
+                <td>21KT1A4709</td>
+                <td>Paavan Sai</td>
+                <td><input type="radio" name="attendance[9]" value="Present"></td><td>
+                    <input type="radio" name="attendance[9]" value="Absent"></td>
+                <tr>
+                    <td>21KT1A4710</td>
+                    <td>Sarath</td>
+                    <td><input type="radio" name="attendance[10]" value="Present"></td><td>
+                        <input type="radio" name="attendance[10]" value="Absent"></td>
+                </tr>
+                <td>21KT1A4711</td>
+                <td>Mahesh</td>
+                <td><input type="radio" name="attendance[11]" value="Present"></td><td>
+                    <input type="radio" name="attendance[11]" value="Absent"></td>
+                <tr>
+                    <td>21KT1A4712</td>
+                    <td>Megha Sai</td>
+                    <td><input type="radio" name="attendance[12]" value="Present"></td><td>
+                        <input type="radio" name="attendance[12]" value="Absent"></td>
+                </tr>
+                <td>21KT1A4713</td>
+                <td>Sailaja</td>
+                <td><input type="radio" name="attendance[13]" value="Present"></td><td>
+                    <input type="radio" name="attendance[13]" value="Absent"></td>
+                <tr>
+                    <td>21KT1A4716</td>
+                    <td>Akhilesh</td>
+                    <td><input type="radio" name="attendance[16]" value="Present"></td><td>
+                        <input type="radio" name="attendance[16]" value="Absent"></td>
+                </tr>
+                <td>21KT1A4717</td>
+                <td>Bhaskar</td>
+                <td><input type="radio" name="attendance[17]" value="Present"></td><td>
+                    <input type="radio" name="attendance[17]" value="Absent"></td>
+                <tr>
+                    <td>21KT1A4718</td>
+                    <td>Sai Kiran</td>
+                    <td><input type="radio" name="attendance[18]" value="Present"></td><td>
+                        <input type="radio" name="attendance[18]" value="Absent"></td>
+                </tr>
+                <td>21KT1A4719</td>
+                <td>Jithendra</td>
+                <td><input type="radio" name="attendance[19]" value="Present"></td><td>
+                    <input type="radio" name="attendance[19]" value="Absent"></td>
+                <tr>
+                    <td>21KT1A4720</td>
+                    <td>Guru Charan</td>
+                    <td><input type="radio" name="attendance[20]" value="Present"></td><td>
+                        <input type="radio" name="attendance[20]" value="Absent"></td>
+                </tr>
+                <td>21KT1A4721</td>
+                <td>Jayasree</td>
+                <td><input type="radio" name="attendance[21]" value="Present"></td><td>
+                    <input type="radio" name="attendance[21]" value="Absent"></td>
+                <tr>
+                    <td>21KT1A4722</td>
+                    <td>Sravani</td>
+                    <td><input type="radio" name="attendance[22]" value="Present"></td><td>
+                        <input type="radio" name="attendance[22]" value="Absent"></td>
+                </tr>
+                <td>21KT1A4723</td>
+                <td>Dinesh Babu</td>
+                <td><input type="radio" name="attendance[23]" value="Present"></td><td>
+                    <input type="radio" name="attendance[23]" value="Absent"></td>
+                <tr>
+                    <td>21KT1A4724</td>
+                    <td>Rakshitha</td>
+                    <td><input type="radio" name="attendance[24]" value="Present"></td><td>
+                        <input type="radio" name="attendance[24]" value="Absent"></td>
+                </tr>
+                <td>21KT1A4725</td>
+                <td>Tridev</td>
+                <td><input type="radio" name="attendance[25]" value="Present"></td><td>
+                    <input type="radio" name="attendance[25]" value="Absent"></td>
+                <tr>
+                    <td>21KT1A4726</td>
+                    <td>Lakshman</td>
+                    <td><input type="radio" name="attendance[26]" value="Present"></td><td>
+                        <input type="radio" name="attendance[26]" value="Absent"></td>
+                </tr>
+                <td>21KT1A4727</td>
+                <td>Prasuna</td>
+                <td><input type="radio" name="attendance[27]" value="Present"></td><td>
+                    <input type="radio" name="attendance[27]" value="Absent"></td>
+                <tr>
+                    <td>21KT1A4728</td>
+                    <td>Venkat Sai</td>
+                    <td><input type="radio" name="attendance[28]" value="Present"></td><td>
+                        <input type="radio" name="attendance[28]" value="Absent"></td>
+                </tr>
+                <td>21KT1A4729</td>
+                <td>Bhavana</td>
+                <td><input type="radio" name="attendance[29]" value="Present"></td><td>
+                    <input type="radio" name="attendance[29]" value="Absent"></td>
+                <tr>
+                    <td>21KT1A4730</td>
+                    <td>Deepthi</td>
+                    <td><input type="radio" name="attendance[30]" value="Present"></td><td>
+                        <input type="radio" name="attendance[30]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4731</td>
+                    <td>Vijaya Varma</td>
+                    <td><input type="radio" name="attendance[31]" value="Present"></td><td>
+                        <input type="radio" name="attendance[31]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4732</td>
+                    <td>Lazareena</td>
+                    <td><input type="radio" name="attendance[32]" value="Present"></td><td>
+                        <input type="radio" name="attendance[32]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4733</td>
+                    <td>Aasritha</td>
+                    <td><input type="radio" name="attendance[33]" value="Present"></td><td>
+                        <input type="radio" name="attendance[33]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4735</td>
+                    <td>Haritha</td>
+                    <td><input type="radio" name="attendance[35]" value="Present"></td><td>
+                        <input type="radio" name="attendance[35]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4736</td>
+                    <td>Aarathi</td>
+                    <td><input type="radio" name="attendance[36]" value="Present"></td><td>
+                        <input type="radio" name="attendance[36]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4737</td>
+                    <td>Gulzar</td>
+                    <td><input type="radio" name="attendance[37]" value="Present"></td><td>
+                        <input type="radio" name="attendance[37]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4738</td>
+                    <td>Anjana</td>
+                    <td><input type="radio" name="attendance[38]" value="Present"></td><td>
+                        <input type="radio" name="attendance[38]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4739</td>
+                    <td>Niharika</td>
+                    <td><input type="radio" name="attendance[39]" value="Present"></td><td>
+                        <input type="radio" name="attendance[39]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4740</td>
+                    <td>Sai Vardhan</td>
+                    <td><input type="radio" name="attendance[40]" value="Present"></td><td>
+                        <input type="radio" name="attendance[40]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4741</td>
+                    <td>Bindhu</td>
+                    <td><input type="radio" name="attendance[41]" value="Present"></td><td>
+                        <input type="radio" name="attendance[41]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4742</td>
+                    <td>Bhavitha</td>
+                    <td><input type="radio" name="attendance[42]" value="Present"></td><td>
+                        <input type="radio" name="attendance[42]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4743</td>
+                    <td>Kishore</td>
+                    <td><input type="radio" name="attendance[43]" value="Present"></td><td>
+                        <input type="radio" name="attendance[43]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4744</td>
+                    <td>Surya</td>
+                    <td><input type="radio" name="attendance[44]" value="Present"></td><td>
+                        <input type="radio" name="attendance[44]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4745</td>
+                    <td>Hamsa</td>
+                    <td><input type="radio" name="attendance[45]" value="Present"></td><td>
+                        <input type="radio" name="attendance[45]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4746</td>
+                    <td>Roshini</td>
+                    <td><input type="radio" name="attendance[46]" value="Present"></td><td>
+                        <input type="radio" name="attendance[46]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4747</td>
+                    <td>Sampath</td>
+                    <td><input type="radio" name="attendance[47]" value="Present"></td><td>
+                        <input type="radio" name="attendance[47]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4748</td>
+                    <td>Harsha</td>
+                    <td><input type="radio" name="attendance[48]" value="Present"></td><td>
+                        <input type="radio" name="attendance[48]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4749</td>
+                    <td>Vijay Babu</td>
+                    <td><input type="radio" name="attendance[49]" value="Present"></td><td>
+                        <input type="radio" name="attendance[49]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4750</td>
+                    <td>Nazia</td>
+                    <td><input type="radio" name="attendance[50]" value="Present"></td><td>
+                        <input type="radio" name="attendance[50]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4751</td>
+                    <td>Tasleem</td>
+                    <td><input type="radio" name="attendance[51]" value="Present"></td><td>
+                        <input type="radio" name="attendance[51]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4752</td>
+                    <td>Ram</td>
+                    <td><input type="radio" name="attendance[52]" value="Present"></td><td>
+                        <input type="radio" name="attendance[52]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4753</td>
+                    <td>Veda</td>
+                    <td><input type="radio" name="attendance[53]" value="Present"></td><td>
+                        <input type="radio" name="attendance[53]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4754</td>
+                    <td>Harshith</td>
+                    <td><input type="radio" name="attendance[54]" value="Present"></td><td>
+                        <input type="radio" name="attendance[54]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4755</td>
+                    <td>Dinesh</td>
+                    <td><input type="radio" name="attendance[55]" value="Present"></td><td>
+                        <input type="radio" name="attendance[55]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4756</td>
+                    <td>Sreenidhi</td>
+                    <td><input type="radio" name="attendance[56]" value="Present"></td><td>
+                        <input type="radio" name="attendance[56]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4757</td>
+                    <td>Murali</td>
+                    <td><input type="radio" name="attendance[57]" value="Present"></td><td>
+                        <input type="radio" name="attendance[57]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4758</td>
+                    <td>venkat</td>
+                    <td><input type="radio" name="attendance[58]" value="Present"></td><td>
+                        <input type="radio" name="attendance[58]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4759</td>
+                    <td>Saiesh</td>
+                    <td><input type="radio" name="attendance[59]" value="Present"></td><td>
+                        <input type="radio" name="attendance[59]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4760</td>
+                    <td>Hema</td>
+                    <td><input type="radio" name="attendance[60]" value="Present"></td><td>
+                        <input type="radio" name="attendance[60]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4761</td>
+                    <td>Ajay</td>
+                    <td><input type="radio" name="attendance[61]" value="Present"></td><td>
+                        <input type="radio" name="attendance[61]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4762</td>
+                    <td>Balaram</td>
+                    <td><input type="radio" name="attendance[62]" value="Present"></td><td>
+                        <input type="radio" name="attendance[62]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4763</td>
+                    <td>Satya</td>
+                    <td><input type="radio" name="attendance[63]" value="Present"></td><td>
+                        <input type="radio" name="attendance[63]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4764</td>
+                    <td>Harshitha</td>
+                    <td><input type="radio" name="attendance[64]" value="Present"></td><td>
+                        <input type="radio" name="attendance[64]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4765</td>
+                    <td>Narendra</td>
+                    <td><input type="radio" name="attendance[65]" value="Present"></td><td>
+                        <input type="radio" name="attendance[65]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>21KT1A4766</td>
+                    <td>Bhargav</td>
+                    <td><input type="radio" name="attendance[66]" value="Present"></td><td>
+                        <input type="radio" name="attendance[66]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>22KT1A4701</td>
+                    <td>Sundhar</td>
+                    <td><input type="radio" name="attendance[67]" value="Present"></td><td>
+                        <input type="radio" name="attendance[67]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>22KT1A4702</td>
+                    <td>Vaghdevi</td>
+                    <td><input type="radio" name="attendance[68]" value="Present"></td><td>
+                        <input type="radio" name="attendance[68]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>22KT1A4703</td>
+                    <td>Sadik</td>
+                    <td><input type="radio" name="attendance[69]" value="Present"></td><td>
+                        <input type="radio" name="attendance[69]" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td>22KT1A4704</td>
+                    <td>Rakesh</td>
+                    <td><input type="radio" name="attendance[70]" value="Present"></td><td>
+                        <input type="radio" name="attendance[70]" value="Absent"></td>
+                </tr>
+
+
+            </tbody>
+        </table>
+        <br>
+        <button type="submit" name="submit">Submit Attendance</button>
+    </form>        <div id="table" >
+            </div> 
+
+                `;
+            } else if (page === 'givepermission') {
+                content.innerHTML = `
+            <h1>Give Permission</h1>
+            <center>
+
+<form id="myform" onSubmit="JavaScript:submitForm()"  method="POST">
+    <label for="Roll Number">Roll Number:</label>
+    <input type="Roll Number" id="Roll Number" name="Roll Number" required>
+    
+    <label for="Class/Section">Class/Section:</label>
+           <select name="Due To Fine " id="S">
+<option value="CIC">CIC</option>
+          <option value="CSE-IOT">CSE-IOT</option>
+<option value="CSM">CSM</option>
+<option value="CSE-A">CSE-A</option>
+<option value="CSE-B">CSE-B</option>
+  <option value="ECE">ECE</option>
+    <option value="EEE">EEE</option>
+      <option value="CSD">CSD</option>
+
+</select><br><br>
+    
+    
+<label for="name">Due To Premission:</label>   
+    <select name="Due To Fine " id="S">
+<option value="Tuck">Fever</option>
+<option value="Hair Cut">Function</option>
+<option value="Proper Dress">Other </option>
+</select><br><br>
+    
+<form action="/action_page.php">
+<label for="myfile">submit id proof of student:</label>
+<input type="file" id="myfile" name="myfile"><br><br>
+<button type="submit" name="submit">submit</button>
+</form>
+</center>
+        `;
+            } else if (page === 'facultytimetable') {
+                content.innerHTML = `
+                
+
+<h1>Time Table</h1>
+<table border="1">
+<tr style="font-weight: bolder; background-color: #4CAF50;">
+<td>DAY</td>
+<td>9:00-9:50</td>
+<td>9:50-10:40</td>
+<td>10:40-11:00</td>
+<td>11:00-11:50</td>
+<td>11:50-12:40</td>
+<td>12:40-1:30</td>
+<td>1:30-2:30</td>
+<td>2:30-3:30</td>
+<td>3:30-4:30</td>
+</tr>
+<tr>
+<td style="font-weight: bolder; background-color: #4CAF50;">MON</td>
+<td>CN</td>
+<td>IOT&AP</td>
+<td rowspan="6">BREAK</td>
+<td>WT</td>
+<td>GG</td>
+<td rowspan="6">LUNCH BREAK</td>
+<td>CN</td>
+<td>DAA</td>
+<td>SPORTS</td>
+</tr>
+<tr>
+<td style="font-weight: bolder; background-color: #4CAF50;">TUE</td>
+<td>IOT&AP</td>
+<td>WT</td>
+<td colspan="2">DAA</td>
+<td colspan="2">CG</td>
+<td>CN</td>
+</tr>
+<tr>
+<td style="font-weight: bolder; background-color: #4CAF50;">WED</td>
+<td>WT</td>
+<td>DAA</td>
+<td>IOT&AP</td>
+<td>CG</td>
+<td colspan="3">SKILL LAB</td>
+</tr>
+<tr>
+<td style="font-weight: bolder; background-color: #4CAF50;">THUR</td>
+<td>CG</td>
+<td>WT</td>
+<td colspan="2">CRT APT</td>
+<td colspan="3">NP LAB/ARDUINO LAB</td>
+</tr>
+<tr>
+<td style="font-weight: bolder; background-color: #4CAF50;">FRI</td>
+<td>IOT&AP</td>
+<td>ES</td>
+<td>CN</td>
+<td>CG</td>
+<td colspan="3">CRT TECH</td>
+</tr>
+<tr>
+<td style="font-weight: bolder; background-color: #4CAF50;">SAT</td>
+<td colspan="2">WT</td>
+<td>ES</td>
+<td>CN</td>
+<td>DAA</td>
+<td>IOT&AP</td>
+<td>COUNC</td>
+</tr>
+</table>
+
+       
+                `;
+            } else if (page === 'fine') {
+                content.innerHTML = `<h1>MAKE AN FINE TO THE STUDENT</H1>
+                    
+<center>
+
+    <form id="myform" onSubmit="JavaScript:submitForm()"  method="POST">
+        <label for="Roll Number">Roll Number:</label>
+        <input type="Roll Number" id="Roll Number" name="Roll Number" required>
+        
+        <label for="Class/Section">Class/Section:</label>
+        <select name="Due To Fine " id="S">
+  <option value="CIC">CIC</option>
+  		    <option value="CSE-IOT">CSE-IOT</option>
+  <option value="CSM">CSM</option>
+  <option value="CSE-A">CSE-A</option>
+    <option value="CSE-B">CSE-B</option>
+	  <option value="ECE">ECE</option>
+	    <option value="EEE">EEE</option>
+		  <option value="CSD">CSD</option>
+
+</select><br><br>
+        
+        
+   <label for="name">Due To Fine :</label>   
+		<select name="Due To Fine " id="S">
+  <option value="Tuck">Tuck</option>
+  <option value="Hair Cut">Hair Cut</option>
+  <option value="Proper Dress">Proper Dress </option>
+</select><br><br>
+        
+<form action="/action_page.php">
+  <label for="myfile">Select a  proof image:</label>
+  <input type="file" id="myfile" name="myfile"><br><br>
+  <button type="submit" name="submit">submit</button>
+</form>
+</center>
+    
+    </form>
+`;
+            }
+        }
+
+
+        function showUserMenu(userType) {
+            var userMenu = document.getElementById('userMenu');
+
+            if (userType === 'student') {
+                userMenu.innerHTML = `
+                    <h3>Student Menu</h3>
+                    <ul>
+                <li><a href="#" onclick="showPage('timetables')">Timetables</a></li>
+                <li><a href="#" onclick="showPage('myfines')">My Fines</a></li>
+                <li><a href="#" onclick="showPage('payment')">my permission history</a></li>
+                    </ul>
+                `;
+            } else if (userType === 'faculty') {
+                userMenu.innerHTML = `
+                    <h3>Faculty Menu</h3>
+                               <ul>
+
+                <li><a href="#" onclick="showPage('attendence')">Attendence</a></li>
+                <li><a href="#" onclick="showPage('givepermission')">Give Permission</a></li>
+                <li><a href="#" onclick="showPage('fine')">Submit a fine </a></li>
+                <li><a href="#" onclick="showPage('facultytimetable')">Faculty Timetable</a></li>
+            </ul>
+                `;
+            }
+        }
+
+        document.getElementById("login-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            var login = document.getElementById('login_container');
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            if (username === "student" && password === "password") {
+                alert("Login successful as student!");
+                showUserMenu("student");
+
+                {
+                    login.innerHTML = '<a href="webapp.html">logout</a>';
+                }
+
+            } else if (username === "faculty" && password === "password") {
+                alert("Login successful as faculty!");
+                showUserMenu("faculty"); {
+                    login.innerHTML = '<a href="webapp.html">logout</a>';
+                }
+            } else {
+                alert("Invalid username or password. Please try again.");
+            }
+        });
+
+        function markAllPresent() {
+            var radioButtons = document.querySelectorAll('input[type="radio"]');
+            for (var i = 0; i < radioButtons.length; i++) {
+                if (radioButtons[i].value === 'Present') {
+                    radioButtons[i].checked = true;
+                }
+            }
+        }
+        var myform = document.getElementById("myform");
+
+
+        function submitForm() {
+            content.innerHTML = ` <h1>successfully submitted</h1> `
+        }
+
+        function markAllAbsent() {
+            var radioButtons = document.querySelectorAll('input[type="radio"]');
+            for (var i = 0; i < radioButtons.length; i++) {
+                if (radioButtons[i].value === 'Absent') {
+                    radioButtons[i].checked = true;
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
